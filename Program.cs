@@ -29,8 +29,17 @@ namespace Algorithms
             var y = new List<int> { 1, 2, 3, 4 };
             SubsequenceAlgorithm algorithm = new SubsequenceAlgorithm(x, y);
             algorithm.GetLCS(x, y);
-            algorithm.printLCS(x.Count()-1, y.Count()-1);
+            //algorithm.printLCS(x.Count()-1, y.Count()-1);
 
+
+
+            var LIS = new SubsequenceAlgorithm();
+            var a = new List<int> { 1, 3, 2, 5, 4 };
+            var res = LIS.findLIS(a);
+            foreach (var el in res)
+            {
+                Console.Write(el + " ");
+            }
         }
 
         // Обзоды графа

@@ -14,6 +14,7 @@ namespace Algorithms
         int[,] lcs;
         (int, int)[,] prev;
 
+        public SubsequenceAlgorithm() { }
         public SubsequenceAlgorithm(List<int> x, List<int> y)
         {
             this.x = x;
@@ -79,6 +80,53 @@ namespace Algorithms
                 else
                     printLCS(i, j - 1);
             }
+        }
+
+        // НВП
+        public List<int> findLIS(List<int> a)
+        {
+            int n = a.Count(); // Размер исходной последовательности
+            int[] prev = new int[n]; // Для восстановления ответа заведем массив prev[0...n−1],
+                                        // где prev[i]
+                                        // будет означать индекс в массиве a[],
+                                        // при котором достигалось наибольшее значение d[i].
+                                        // Для вывода ответа будем идти от элемента с максимальным значениям d[i]
+                                        // по его предкам.
+            int[] L = new int[n];
+
+            for (int i = 0; i < n; i++) // Тут идем до n - 1 
+            {
+                L[i] = 1;
+                prev[i] = -1;
+                for (int j = 0; j < i; j++) // Тут идем до i - 1 как и в алгоритме
+                {
+                    if (a[j] < a[i] && L[j] + 1 > L[i])
+                    {
+                        L[i] = L[j] + 1;
+                        prev[i] = j;
+                    }
+                }
+            }
+            int pos = 0; // индекс последнего элемента НВП
+            int length = L[0]; // Длина НВП
+            for (int i = 0; i < n; i++)
+            {
+                if (L[i] > length)
+                {
+                    pos = i;
+                    length = L[i];
+                }
+            }
+
+            // Восстановление ответа
+            List<int> answer = new List<int>();
+            while (pos != -1)
+            {
+                answer.Add(a[pos]);
+                pos = prev[pos];
+            }
+            answer.Reverse(); // Изменить порядок элементов на обратный
+            return answer;
         }
     }
 }
