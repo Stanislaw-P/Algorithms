@@ -29,19 +29,19 @@ namespace Algorithms
         {
             m = x.Count();
             n = y.Count();
-            lcs = new int[m, n];
-            prev = new (int, int)[m, n];
+            lcs = new int[m+1, n+1];
+            prev = new (int, int)[m+1, n+1];
 
             // Первая строка и столбец матрицы нули по опр НОП
-            for (int i = 1; i < m; i++)
+            for (int i = 1; i <= m; i++)
                 lcs[i, 0] = 0;
-            for (int j = 0; j < n; j++)
+            for (int j = 0; j <= n; j++)
                 lcs[0, j] = 0;
-            for (int i = 1; i < m; i++)
+            for (int i = 1; i <= m; i++)
             {
-                for (int j = 1; j < n; j++)
+                for (int j = 1; j <= n; j++)
                 {
-                    if (x[i] == y[j])
+                    if (x[i-1] == y[j-1])
                     {
                         lcs[i, j] = lcs[i - 1, j - 1] + 1;
                         prev[i, j] = (i - 1, j - 1);
@@ -72,7 +72,7 @@ namespace Algorithms
             if (prev[i, j] == (i - 1, j - 1)) // Если пришли в lcs[i, j] из lcs[i - 1, j - 1], то x[i] == y[j], надо вывести этот элемент
             {
                 printLCS(i - 1, j - 1);
-                Console.Write(x[i]);
+                Console.Write(x[i-1] + " ");
             }
             else
             {
@@ -88,11 +88,11 @@ namespace Algorithms
         {
             int n = a.Count(); // Размер исходной последовательности
             int[] prev = new int[n]; // Для восстановления ответа заведем массив prev[0...n−1],
-                                        // где prev[i]
-                                        // будет означать индекс в массиве a[],
-                                        // при котором достигалось наибольшее значение d[i].
-                                        // Для вывода ответа будем идти от элемента с максимальным значениям d[i]
-                                        // по его предкам.
+                                     // где prev[i]
+                                     // будет означать индекс в массиве a[],
+                                     // при котором достигалось наибольшее значение d[i].
+                                     // Для вывода ответа будем идти от элемента с максимальным значениям d[i]
+                                     // по его предкам.
             int[] L = new int[n];
 
             for (int i = 0; i < n; i++) // Тут идем до n - 1 
