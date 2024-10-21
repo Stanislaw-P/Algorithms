@@ -25,7 +25,7 @@ namespace Algorithms
         }
 
         // Тут можно убрать входные аргументы, тк это есть в конструкторе. Но для объяснения оставь!
-        public void GetLCS(List<int> x, List<int> y)
+        public int GetLCS(List<int> x, List<int> y)
         {
             m = x.Count();
             n = y.Count();
@@ -61,6 +61,7 @@ namespace Algorithms
                     }
                 }
             }
+            return lcs[m, n]; // Длина наибольшей общей подпоследовательности
         }
 
         // Вывод LCS, вызывается как printLCS(m, n)
